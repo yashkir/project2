@@ -1,11 +1,10 @@
 $font-stack: Helvetica, sans-serif;
 $link-color: #00B7FF;
 
-body {
-  padding: 50px;
-  font: 100% $font-stack;
-}
-
 a {
   color: $link-color;
+}
+
+.brand-logo {
+    margin-left: 1em;
 }

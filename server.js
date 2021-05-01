@@ -6,6 +6,7 @@ var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
 
 var indexRouter = require('./routes/index');
+var transactionsRouter = require('./routes/transactions');
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressLayouts);
 
 app.use('/', indexRouter);
+app.use('/transactions', transactionsRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
