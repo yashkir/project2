@@ -1,0 +1,39 @@
+<h4>Add a Transaction</h4>
+<div class="row">
+  <form class="col s12" action="/transactions" method="post">
+    <div class="row">
+      <div class="input-field col s6">
+        <label for="date">date</label>
+        <input placeholder="today" type="date" id="date">
+      </div>
+      <div class="input-field col s6">
+        <label for="title">title</label>
+        <input type="text" id="title">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s6">
+        <label for="account-1">account name</label>
+        <input type="text" id="account-1">
+      </div>
+      <div class="input-field col s6">
+        <label for="value-1">amount</label>
+        <input type="text" id="value-1">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s6">
+        <label for="account-2">account name</label>
+        <input type="text" id="account-2">
+      </div>
+      <div class="input-field col s6">
+        <label for="value-2">amount</label>
+        <input type="text" id="value-2">
+      </div>
+    </div>
+
+    <input class="btn" type="submit" value="Add">
+  </form>
+</div>

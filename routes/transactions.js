@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var transactionsCtrl = require('../controllers/transactions');
 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Transactions' });
-});
+router.get('/', transactionsCtrl.index);
+router.post('/', transactionsCtrl.create);
 
 module.exports = router;
