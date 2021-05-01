@@ -1,11 +1,17 @@
 <div id="nav-wrapper">
   <nav>
     <div class="nav-wrapper">
-      <a href="#!" class="brand-logo left">Home</a>
+      <a href="/" class="brand-logo left">Home</a>
       <ul id="nav-mobile" class="right">
-        <li><a href="/transactions">Transactions</a></li>
-        <li><a href="/reports">Reports</a></li>
-        <li><a href="/login">Login</a></li>
+        <li <%= title == "Transactions" ?  `class=active` : ''%>>
+          <a href="/transactions" >Transactions</a>
+        </li>
+        <li <%= title == "Reports" ?  `class=active` : ''%>>
+          <a href="/reports">Reports</a>
+        </li>
+        <li <%= title == "Login" ?  `class=active` : ''%>>
+          <a href="/login">Login</a>
+        </li>
       </ul>
     </div>
   </nav>
