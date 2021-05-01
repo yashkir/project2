@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
 
+require('dotenv').config();
+require('./config/database');
+
 var indexRouter = require('./routes/index');
 var transactionsRouter = require('./routes/transactions');
 var usersRouter = require('./routes/users');
