@@ -9,9 +9,17 @@
         <li <%= title == "Reports" ?  `class=active` : ''%>>
           <a href="/reports">Reports</a>
         </li>
-        <li <%= title == "Login" ?  `class=active` : ''%>>
-          <a href="/login">Login</a>
+        <% if (typeof username !== 'undefined') { %>
+        <li >
+          <a href="/users/<%= username %>">
+          <b><%= username %></b>
+          </a>
         </li>
+        <% } else { %>
+          <li <%= title == "Login" ?  `class=active` : ''%>>
+            <a href="/login">Login</a>
+          </li>
+        <% } %>
       </ul>
     </div>
   </nav>

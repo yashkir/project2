@@ -36,6 +36,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Let our templates know the username
+app.use((req, res, next) => {
+  if (req.user) {
+    res.locals.username = req.user.username;
+  }
+  next();
+});
+
 app.use('/', usersRouter);
 app.use('/', indexRouter);
 app.use('/transactions', transactionsRouter);

@@ -4,14 +4,9 @@ var connectEnsureLogin = require('connect-ensure-login');
 
 var usersCtrl = require('../controllers/users.js');
 
-/* GET users listing. */
-router.get('/users', function(req, res, next) {
-  res.send('respond with a resource');
-});
-
-router.get('/login', usersCtrl.register);
+router.get('/login', usersCtrl.showLogin);
 router.post('/login', usersCtrl.login);
-router.post('/register', usersCtrl.createAccount);
+router.post('/register', usersCtrl.register);
 
 router.get('/users/private', connectEnsureLogin.ensureLoggedIn(), function(req, res, next) {
   res.send('private resource');
