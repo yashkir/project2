@@ -20,6 +20,11 @@ function login(req, res, next) {
   })(req, res, next);
 }
 
+function logout(req, res) {
+  req.logout();
+  res.redirect('/');
+}
+
 function register(req, res, next) {
   User.register(new User({username: req.body.username}), req.body.password, (err) => {
     if (err) {
@@ -30,9 +35,15 @@ function register(req, res, next) {
   });
 }
 
+function show(req, res) {
+  res.render('users/show', { title: req.user.username, user: req.user });
+}
+
 
 module.exports = {
   showLogin,
   login,
+  logout,
   register,
+  show,
 }
