@@ -11,6 +11,9 @@ var userSchema = new mongoose.Schema({
   ledgers: {
     type: String, //TODO set foreign reference here
   },
+},
+{
+  timestamps: true
 });
 
 userSchema.plugin(passportLocalMongoose);
