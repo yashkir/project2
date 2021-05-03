@@ -1,15 +1,25 @@
-let Transaction = require('../models/transaction');
-let Entry = require('../models/entry');
+var Transaction = require('../models/transaction');
+var Entry = require('../models/entry');
+var debug = require('debug')('transactions');
 
 const DEFAULT_COMMODITY = '$';
 
 function index(req, res, next) {
-  res.render('transactions/index', { title: 'Transactions' });
+  Transaction.find({})
+    .populate('entries')
+    .exec()
+    .then(transactions => {
+      res.render('transactions/index', {
+        title: 'Transactions',
+        transactions,
+      });
+    })
+    .catch(err => next(err));
 };
 
 async function create(req, res, next) {
   try {
-    let newTransaction = await Transaction.create({
+    let newTransaction = new Transaction({
       name: req.body.name,
       date: req.body.date,
       entries: []
@@ -29,7 +39,13 @@ async function create(req, res, next) {
     await newTransaction.save();
     res.redirect('/transactions');
   } catch (err) {
-    next(err);
+    // Send them back if it's a validation error
+    if (err.name === 'ValidationError') {
+      debug(err);
+      res.redirect('/transactions?info=ValidationError');
+    } else {
+      next(err);
+    }
   }
 };
 
