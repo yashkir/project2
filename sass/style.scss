@@ -6,5 +6,14 @@ a {
 }
 
 .brand-logo {
-    margin-left: 1em;
+  margin-left: 1em;
+}
+
+#add-transaction-form {
+  input {
+    height: 2rem;
+  }
+  .row, .col {
+    margin: 0.25rem 0;
+  }
 }
