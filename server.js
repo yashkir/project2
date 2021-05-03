@@ -5,9 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
 var session = require('express-session');
+var passport = require('passport');
 
 require('dotenv').config();
 require('./config/database');
+require('./config/passport');
 
 var indexRouter = require('./routes/index');
 var transactionsRouter = require('./routes/transactions');
@@ -30,11 +32,13 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', usersRouter);
 app.use('/', indexRouter);
 app.use('/transactions', transactionsRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -49,7 +53,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', {title:'error'});
 });
 
 module.exports = app;
