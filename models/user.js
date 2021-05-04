@@ -8,9 +8,10 @@ var userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  ledgers: {
-    type: String, //TODO set foreign reference here
-  },
+  ledgers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Ledger'
+  }],
 },
 {
   timestamps: true
