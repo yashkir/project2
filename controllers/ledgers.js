@@ -29,8 +29,14 @@ function _delete(req, res) {
   res.send("empty route");
 }
 
+function select(req, res) {
+  req.session.activeLedger = req.params.id;
+  res.redirect('/transactions');
+}
+
 module.exports = {
   index,
   create,
   delete: _delete,
+  select,
 }

@@ -1,21 +1,30 @@
 var Transaction = require('../models/transaction');
+var Ledger = require('../models/ledger');
 var Entry = require('../models/entry');
 var debug = require('debug')('transactions');
 
 const DEFAULT_COMMODITY = '$';
 
-function index(req, res, next) {
-  Transaction.find({})
-    .populate('entries')
-    .exec()
-    .then(transactions => {
-      res.render('transactions/index', {
-        title: 'Transactions',
-        transactions,
-        activeLedger: req.session.activeLedger || 'none'
-      });
-    })
-    .catch(err => next(err));
+async function index(req, res, next) {
+  try {
+    // Deep populate the ledger
+    let ledger = await Ledger.findById(req.session.activeLedger)
+      .populate({
+        path: 'transactions',
+        populate: { path: 'entries' },
+      })
+      .exec()
+
+    let transactions = ledger.transactions;
+
+    res.render('transactions/index', {
+      title: 'Transactions',
+      transactions,
+      ledger: ledger || 'none'
+    });
+  } catch(err) {
+    next(err);
+  }
 };
 
 async function create(req, res, next) {
