@@ -14,6 +14,7 @@ require('./config/passport');
 var indexRouter = require('./routes/index');
 var transactionsRouter = require('./routes/transactions');
 var usersRouter = require('./routes/users');
+var ledgersRouter = require('./routes/ledgers');
 
 var app = express();
 
@@ -40,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
   if (req.user) {
     res.locals.username = req.user.username;
+    res.locals.user = req.user;
   }
   if (req.query.info) {
     res.locals.info = req.query.info;
@@ -50,6 +52,7 @@ app.use((req, res, next) => {
 app.use('/', usersRouter);
 app.use('/', indexRouter);
 app.use('/transactions', transactionsRouter);
+app.use('/ledgers', ledgersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

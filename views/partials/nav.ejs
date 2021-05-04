@@ -3,16 +3,19 @@
     <div class="nav-wrapper">
       <a href="/" class="brand-logo left">Project Two</a>
       <ul id="nav-mobile" class="right">
+        <li <%= title == "Ledgers" ?  `class=active` : ''%>>
+          <a href="/ledgers" >Ledgers</a>
+        </li>
         <li <%= title == "Transactions" ?  `class=active` : ''%>>
           <a href="/transactions" >Transactions</a>
         </li>
         <li <%= title == "Reports" ?  `class=active` : ''%>>
           <a href="/reports">Reports</a>
         </li>
-        <% if (typeof username !== 'undefined') { %>
+        <% if (typeof user !== 'undefined') { %>
         <li >
           <a href="/users/<%= username %>">
-          <b><%= username %></b>
+          <b><%= user.username %></b>
           </a>
         </li>
         <% } else { %>

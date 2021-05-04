@@ -7,6 +7,14 @@
 <form id="add-transaction-form" action="/transactions" method="post">
   <div class="row">
     <div class="input-field col s4">
+      <label for="ledger">ledger</label>
+      <input placeholder="" value="<%= activeLedger %>"
+                          type="text" name="ledger" id="ledger">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s4">
       <label for="date">date</label>
       <input placeholder="" value="<%= (new Date()).toISOString().slice(0, 10) %>"
                           type="date" name="date" id="date">
