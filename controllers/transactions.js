@@ -29,6 +29,10 @@ async function index(req, res, next) {
 
 async function create(req, res, next) {
   try {
+    // TODO this check should be applied to all ledger read/writes
+    if (!req.user.ledgers.includes(req.session.activeLedger)) {
+      throw new Error('User does not own active Ledger');
+    }
     let ledger = await Ledger.findById(req.session.activeLedger)
     let newTransaction = new Transaction({
       name: req.body.name,
@@ -47,7 +51,11 @@ async function create(req, res, next) {
       newTransaction.entries.push(entry);
     }
 
+    ledger.transactions.push(newTransaction);
+
     await newTransaction.save();
+    await ledger.save();
+
     res.redirect('/transactions');
   } catch (err) {
     // Send them back if it's a validation error
