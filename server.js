@@ -6,6 +6,7 @@ var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
 var session = require('express-session');
 var passport = require('passport');
+var MongoStore = require('connect-mongo');
 
 require('dotenv').config();
 require('./config/database');
@@ -28,9 +29,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: true
+  store: MongoStore.create({ mongoUrl: process.env.DATABASE_URL }),
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true
 }));
 app.use(cookieParser());
 app.use(passport.initialize());
