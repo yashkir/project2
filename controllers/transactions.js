@@ -12,6 +12,7 @@ function index(req, res, next) {
       res.render('transactions/index', {
         title: 'Transactions',
         transactions,
+        activeLedger: req.session.activeLedger || 'none'
       });
     })
     .catch(err => next(err));
