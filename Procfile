@@ -1,1 +1,1 @@
-css: npm run build-css
+web: npm run build-css
