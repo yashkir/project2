@@ -26,12 +26,13 @@ function logout(req, res) {
 }
 
 function register(req, res, next) {
-  User.register(new User({username: req.body.username}), req.body.password, (err) => {
+  newUser = new User({username: req.body.username})
+  User.register(newUser, req.body.password, (err) => {
     if (err) {
-      next(err);
+      return next(err);
     }
 
-    res.redirect('/');
+    return res.redirect('/');
   });
 }
 
