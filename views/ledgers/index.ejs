@@ -1,9 +1,17 @@
-<form action="/ledgers" method="post">
-  <input type="text" name="name" id="name"/>
-  <input type="submit" value="Add Ledger">
-</form>
+<h4>Ledgers for <a href="/users/<%= user.username %>"><%= user.username %></a></h4>
 
-<h4>Ledgers for <%= user.username %></h4>
+  <form action="/ledgers" method="post">
+  <div class="row">
+      <div class="col s4 input-field">
+        <label for="name">Ledger Name</label>
+        <input type="text" name="name" id="name"/>
+      </div>
+      <div class="col s4 input-field">
+        <input class="btn" type="submit" value="Add Ledger">
+      </div>
+  </div>
+  </form>
+
 <% if (ledgers.length) { %>
 <ul class="collection">
   <% ledgers.forEach(ledger => { %>
