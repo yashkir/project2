@@ -7,6 +7,7 @@ var expressLayouts = require('express-ejs-layouts');
 var session = require('express-session');
 var passport = require('passport');
 var MongoStore = require('connect-mongo');
+var methodOverride = require('method-override');
 
 require('dotenv').config();
 require('./config/database');
@@ -38,6 +39,7 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method'));
 
 // Let our templates know the username and info
 app.use((req, res, next) => {

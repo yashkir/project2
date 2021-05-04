@@ -2,12 +2,14 @@ var Transaction = require('../models/transaction');
 var Ledger = require('../models/ledger');
 var Entry = require('../models/entry');
 var debug = require('debug')('transactions');
+var ledgersCtrl = require('./ledgers');
 
 const DEFAULT_COMMODITY = '$';
 
 async function index(req, res, next) {
   try {
     // Deep populate the ledger
+    ledgersCtrl.throwIfCantModify(req.user, req.session.activeLedger);
     let ledger = await Ledger.findById(req.session.activeLedger)
       .populate({
         path: 'transactions',
@@ -29,10 +31,8 @@ async function index(req, res, next) {
 
 async function create(req, res, next) {
   try {
-    // TODO this check should be applied to all ledger read/writes
-    if (!req.user.ledgers.includes(req.session.activeLedger)) {
-      throw new Error('User does not own active Ledger');
-    }
+    ledgersCtrl.throwIfCantModify(req.user, req.session.activeLedger);
+
     let ledger = await Ledger.findById(req.session.activeLedger)
     let newTransaction = new Transaction({
       name: req.body.name,
@@ -70,5 +70,5 @@ async function create(req, res, next) {
 
 module.exports = {
   index,
-  create
+  create,
 }
