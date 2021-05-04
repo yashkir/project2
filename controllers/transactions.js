@@ -29,6 +29,7 @@ async function index(req, res, next) {
 
 async function create(req, res, next) {
   try {
+    let ledger = await Ledger.findById(req.session.activeLedger)
     let newTransaction = new Transaction({
       name: req.body.name,
       date: req.body.date,
