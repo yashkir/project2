@@ -111,7 +111,7 @@ async function edit(req, res) {
     let transaction = await Transaction.findById(req.params.id)
 
     res.render('transactions/edit', {
-      title: 'Edit Transaction',
+      title: 'Transactions - Edit Transaction',
       transaction,  
     });
   } catch(err) {

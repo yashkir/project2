@@ -17,10 +17,8 @@
   <% ledgers.forEach(ledger => { %>
   <li class="collection-item">
     <a class="btn" href="/ledgers/<%= ledger.id %>">Select</a>
-    <form class="inline-form" action="/ledgers/<%= ledger.id %>?_method=DELETE" method="post">
-      <button class="btn" type="submit">Delete</button>
-    </form>
-    <%= ledger.name %>
+    <span class="ledger-name"><%= ledger.name %></span>
+    <a class="btn red right" href="/ledgers/<%= ledger.id %>?_method=DELETE">Delete</a>
   </li> 
   <% }); %>
 </ul>

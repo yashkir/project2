@@ -22,7 +22,7 @@ async function showNetworth(req, res, next) {
     }
 
     res.render('reports/networth', {
-      title: 'Net Worth',
+      title: 'Reports - Net Worth',
       netWorth
     });
   } catch(err) {
