@@ -6,7 +6,7 @@ a {
 }
 
 .brand-logo {
-  margin-left: 1em;
+  margin-left: 0.25em;
 }
 
 #add-transaction-form {
@@ -30,4 +30,9 @@ a {
 
 .inline-form {
   display: inline-block;
+}
+
+span.ledger-name {
+  display: inline-block;
+  margin-left: 1em;
 }

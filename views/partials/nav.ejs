@@ -1,25 +1,25 @@
 <div id="nav-wrapper">
   <nav>
     <div class="nav-wrapper">
-      <a href="/" class="brand-logo left">Project Two</a>
+      <a href="/" class="brand-logo left">P2</a>
       <ul id="nav-mobile" class="right">
-        <li <%= title == "Reports" ?  `class=active` : ''%>>
+        <li <%= title.match("^Reports") ?  `class=active` : ''%>>
           <a href="/reports">Reports</a>
         </li>
-        <li <%= title == "Transactions" ?  `class=active` : ''%>>
+        <li <%= title.match("^Transactions") ?  `class=active` : ''%>>
           <a href="/transactions" >Transactions</a>
         </li>
-        <li <%= title == "Ledgers" ?  `class=active` : ''%>>
+        <li <%= title.match("^Ledgers") ?  `class=active` : ''%>>
           <a href="/ledgers" >Ledgers</a>
         </li>
         <% if (typeof user !== 'undefined') { %>
-        <li >
-          <a href="/users/<%= username %>">
+        <li <%= title.match("^User") ?  `class=active` : ''%>>
+          <a id="nav-username" href="/users/<%= username %>">
           <b><%= user.username %></b>
           </a>
         </li>
         <% } else { %>
-          <li <%= title == "Login" ?  `class=active` : ''%>>
+          <li <%= title.match("^Login") ?  `class=active` : ''%>>
             <a href="/login">Login</a>
           </li>
         <% } %>

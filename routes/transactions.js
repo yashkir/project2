@@ -4,5 +4,8 @@ var transactionsCtrl = require('../controllers/transactions');
 
 router.get('/', transactionsCtrl.index);
 router.post('/', transactionsCtrl.create);
+router.get('/:id', transactionsCtrl.edit);
+router.put('/:id', transactionsCtrl.update);
+router.delete('/:id', transactionsCtrl.delete);
 
 module.exports = router;

@@ -1,7 +1,6 @@
 const User = require('./models/user');
 const Ledger = require('./models/ledger');
 const Transaction = require('./models/transaction');
-const Entry = require('./models/entry');
 
 require('dotenv').config();
 require('./config/database');
@@ -12,7 +11,6 @@ require('./config/database');
     await User.deleteMany({});
     await Ledger.deleteMany({});
     await Transaction.deleteMany({});
-    await Entry.deleteMany({});
 
     console.log("Seeding DB...");
     let testUser = new User({ username: 'test' });
@@ -35,37 +33,31 @@ require('./config/database');
       transactions: []
     });
 
-    let newEntry1 = new Entry({account: 'Expenses::Groceries', amount: 50.00, currency: '$'});
-    let newEntry2 = new Entry({account: 'Assets::Chequing', amount: -50.00, currency: '$'});
-    await newEntry1.save();
-    await newEntry2.save();
     let newTransaction = new Transaction({
       name: 'No Frills',
       description: 'Bought some stuff at the grocery!',
       date: new Date('2020-04-20'),
       entries: [
-        newEntry1,
-        newEntry2,
+        {account: 'Expenses::Groceries', amount: 50.00, currency: '$'},
+        {account: 'Assets::Chequing', amount: -50.00, currency: '$'}
       ]
     });
     testLedger.transactions.push(newTransaction);
     await newTransaction.save();
     await testLedger.save();
 
-    newEntry1 = new Entry({account: 'Expenses::Electronics', amount: 500.00, currency: '$'});
-    newEntry2 = new Entry({account: 'Assets::Chequing', amount: -500.00, currency: '$'});
-    await newEntry1.save();
-    await newEntry2.save();
     newTransaction = new Transaction({
       name: 'No Frills',
       description: 'Bought some parts',
       date: new Date('2020-04-21'),
       entries: [
-        newEntry1,
-        newEntry2,
+        {account: 'Expenses::Electronics', amount: 500.00, currency: '$'},
+        {account: 'Assets::Chequing', amount: -500.00, currency: '$'}
       ]
     });
+
     testLedger.transactions.push(newTransaction);
+
     await newTransaction.save();
     await testLedger.save();
 

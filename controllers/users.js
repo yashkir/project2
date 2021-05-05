@@ -37,7 +37,7 @@ function register(req, res, next) {
 }
 
 function show(req, res) {
-  res.render('users/show', { title: req.user.username, user: req.user });
+  res.render('users/show', { title: 'Users - ' + req.user.username, user: req.user });
 }
 
 
