@@ -128,9 +128,23 @@ async function update(req, res, next) {
   }
 }
 
+async function _delete(req, res, next) {
+  try {
+    let ledger = await Ledger.findOne({ transactions: req.params.id });
+    if (ledger.owner != req.user) {
+      throw new Error('You do not own this transaction\'s ledger!');   
+    }
+    await Transaction.findByIdAndDelete(req.params.id)
+    res.redirect('/transactions');
+  } catch(err) {
+    next(err);
+  }
+}
+
 module.exports = {
   index,
   create,
   edit,
   update,
+  delete: _delete,
 }

@@ -1,4 +1,5 @@
-<h4>Edit Transaction</h4>
+<h4>Edit Transaction </h4>
 <form id="add-transaction-form" action="/transactions/<%= transaction.id %>?_method=put" method="post">
   <%- include('../partials/transaction-form', { transaction }) %>
 </form>
+<a class="btn red" href='/transactions/<%= transaction.id %>?_method=DELETE'>Delete</a>
