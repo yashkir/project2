@@ -34,10 +34,9 @@ async function create(req, res, next) {
 async function _delete(req, res, next) {
   try {
     throwIfCantModify(req.user, req.params.id);
-    if (!req.user.ledgers.includes(req.params.id)) {
-      throw new Error('User does not own this Ledger');
-    }
+
     await Ledger.deleteOne({ _id: req.params.id });
+
     res.redirect('/ledgers');
   } catch(err) {
     next(err);
@@ -46,6 +45,7 @@ async function _delete(req, res, next) {
 
 function select(req, res) {
   throwIfCantModify(req.user, req.params.id);
+
   req.session.activeLedger = req.params.id;
   res.redirect('/transactions');
 }
