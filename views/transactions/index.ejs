@@ -5,81 +5,39 @@
 </div></div>
 <% } %>
 <form id="add-transaction-form" action="/transactions" method="post">
-  <div class="row">
-    <div class="input-field col s4">
-      <label for="date">date</label>
-      <input placeholder="" value="<%= (new Date()).toISOString().slice(0, 10) %>"
-                          type="date" name="date" id="date">
-    </div>
-    <div class="input-field col s5">
-      <label for="name">name</label>
-      <input type="text" name="name" id="name">
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="input-field col s6 push-s1">
-      <label for="account-1">account</label>
-      <input type="text" placeholder="Expenses::Groceries" name="account-1" id="account-1">
-    </div>
-    <div class="input-field col s2 push-s1">
-      <label for="amount-1">amount</label>
-      <input type="text" placeholder="$0.00" name="amount-1" id="amount-1">
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="input-field col s6 push-s1">
-      <label for="account-2">account</label>
-      <input type="text" placeholder="Assets::Chequing" name="account-2" id="account-2">
-    </div>
-    <div class="input-field col s2 push-s1">
-      <label for="amount-2">amount</label>
-      <input type="text" placeholder="$0.00" name="amount-2" id="amount-2">
-    </div>
-    <div class="input-field col s2 push-s1">
-      <button class="btn">split</button>
-    </div>
-  </div>
-
-  <div class="row">
-    <input class="btn col s3 push-s1 blue" type="submit" value="Add Transaction">
-  </div>
+  <%- include('../partials/transaction-form', { transaction: formTransaction }) %>
 </form>
 <% if (transactions.length) { %>
   <h5>Recent Transactions</h5>
   <% transactions.forEach(transaction => { %>
-    <div id="transaction-history">
-      <div class="card blue-grey">
-        <div class="card-content white-text">
-          <div class="row">
-            <b>
+  <div class="row">
+    <div id="transaction-history" class="card blue-grey col s12 m8">
+      <div class="card-content white-text">
+        <div class="row">
+          <b>
             <div class="col s7">
               <%= transaction?.date.toDateString() %>
             </div>
-            <div class="col s2">
+            <div class="col s5">
               <%= transaction?.name %>
             </div>
-            </b>
-          </div>
-          <div class="row">
-            <div class="col s6 push-s1">
-              <%= transaction.entries[0].account%>
-            </div>
-            <div class="col s2 push-s1">
-              <%= transaction.entries[0].amount %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col s6 push-s1">
-              <%= transaction.entries[1].account %>
-            </div>
-            <div class="col s2 push-s1">
-              <%= transaction.entries[1].amount || null %>
-            </div>
-          </div>
+          </b>
         </div>
+        <% transaction.entries.forEach(entry => { %>
+          <div class="row">
+            <div class="col s9 offset-s1">
+              <%= entry.account%>
+            </div>
+            <div class="col s2 right">
+              <%= entry.amount %>
+            </div>
+          </div>
+        <% }); %>
       </div>
     </div>
+    <div class="col s2 m4">
+      <a href="/transactions/<%= transaction.id %>" class="btn bottom">Edit</a>
+    </div>
+  </div>
   <% }); %>
 <% } %>

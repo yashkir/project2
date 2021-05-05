@@ -1,0 +1,4 @@
+<h4>Edit Transaction:</h4>
+<form id="add-transaction-form" action="/transactions/<%= transaction.id %>?_method=put" method="post">
+  <%- include('../partials/transaction-form', { transaction }) %>
+</form>

@@ -1,10 +1,47 @@
 var Transaction = require('../models/transaction');
 var Ledger = require('../models/ledger');
-var Entry = require('../models/entry');
 var debug = require('debug')('transactions');
 var ledgersCtrl = require('./ledgers');
 
 const DEFAULT_COMMODITY = '$';
+
+/* Helper Functions */
+
+function transactionFromForm(body) {
+  let transaction = {
+    name: body.name,
+    date: body.date,
+    entries: []
+  };
+
+  /* Here we keep grabbing rows until account-i is undefined */
+  for (let i = 0; body['account-' + i]; i++) {
+    let entry = {
+      account: body['account-' + i],
+      amount: body['amount-' + i],
+      commodity: DEFAULT_COMMODITY,
+    };
+
+    transaction.entries.push(entry);
+  }
+
+  return transaction;
+}
+
+var dummyTransaction;
+(async function() {
+  dummyTransaction = await new Transaction({
+    name: '',
+    description: '',
+    date: new Date(),
+    entries: [
+      {account: null, amount: null},
+      {account: null, amount: null}
+    ],
+  }).save()
+})()
+
+/* Route functions */
 
 async function index(req, res, next) {
   try {
@@ -21,6 +58,7 @@ async function index(req, res, next) {
 
     res.render('transactions/index', {
       title: 'Transactions',
+      formTransaction: dummyTransaction,
       transactions,
       ledger: ledger || 'none'
     });
@@ -41,12 +79,12 @@ async function create(req, res, next) {
     });
 
     // TODO this is hardcoded to 2 lines, make it variable
-    for (let i = 1; i <= 2; i++) {
-      let entry = await Entry.create({
+    for (let i = 0; i <= 1; i++) {
+      let entry = {
         account: req.body['account-' + i],
         amount: req.body['amount-' + i],
         commodity: DEFAULT_COMMODITY,
-      });
+      };
 
       newTransaction.entries.push(entry);
     }
@@ -68,7 +106,31 @@ async function create(req, res, next) {
   }
 };
 
+async function edit(req, res) {
+  try {
+    let transaction = await Transaction.findById(req.params.id)
+
+    res.render('transactions/edit', {
+      title: 'Edit Transaction',
+      transaction,  
+    });
+  } catch(err) {
+    next(err);
+  }
+}
+
+async function update(req, res, next) {
+  try {
+    await Transaction.findByIdAndUpdate(req.params.id, transactionFromForm(req.body));
+    res.redirect('/transactions');
+  } catch(err) {
+    next(err);
+  }
+}
+
 module.exports = {
   index,
   create,
+  edit,
+  update,
 }
