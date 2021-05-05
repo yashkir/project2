@@ -8,6 +8,7 @@
   <%- include('../partials/transaction-form', { transaction: formTransaction }) %>
 </form>
 <% if (transactions.length) { %>
+<% transactions.sort((a, b) => b.date - a.date) %>
   <h5>Recent Transactions</h5>
   <% transactions.forEach(transaction => { %>
   <div class="row">
