@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 
-ledgerSchema = new mongoose.Schema({
+let ledgerSchema = new mongoose.Schema({
   name: String,
   description: String,
   owner: {

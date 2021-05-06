@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 
-entrySchema = new mongoose.Schema({
+let entrySchema = new mongoose.Schema({
   account: {
     type: String,
   },
@@ -10,7 +10,7 @@ entrySchema = new mongoose.Schema({
   commodity: String,
 });
 
-transactionSchema = new mongoose.Schema({
+let transactionSchema = new mongoose.Schema({
   name: String,
   description: String,
   date: Date,
