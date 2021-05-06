@@ -131,7 +131,7 @@ async function update(req, res, next) {
 async function _delete(req, res, next) {
   try {
     let ledger = await Ledger.findOne({ transactions: req.params.id });
-    if (ledger.owner != req.user) {
+    if (!ledger.owner._id.equals(req.user._id)) {
       throw new Error('You do not own this transaction\'s ledger!');   
     }
     await Transaction.findByIdAndDelete(req.params.id)
