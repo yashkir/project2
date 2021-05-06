@@ -8,6 +8,7 @@ var session = require('express-session');
 var passport = require('passport');
 var MongoStore = require('connect-mongo');
 var methodOverride = require('method-override');
+var connectEnsureLogin = require('connect-ensure-login');
 
 require('dotenv').config();
 require('./config/database');
@@ -56,9 +57,9 @@ app.use((req, res, next) => {
 
 app.use('/', usersRouter);
 app.use('/', indexRouter);
-app.use('/transactions', transactionsRouter);
-app.use('/ledgers', ledgersRouter);
-app.use('/reports', reportsRouter);
+app.use('/transactions', connectEnsureLogin.ensureLoggedIn(), transactionsRouter);
+app.use('/ledgers', connectEnsureLogin.ensureLoggedIn(), ledgersRouter);
+app.use('/reports', connectEnsureLogin.ensureLoggedIn(), reportsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
