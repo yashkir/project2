@@ -12,8 +12,8 @@
   <h5>Recent Transactions</h5>
   <% transactions.forEach(transaction => { %>
   <div class="row">
-    <div id="transaction-history" class="card blue-grey col s12 m8">
-      <div class="card-content white-text">
+    <div id="transaction-history" class="card col s12 m8">
+      <div class="card-content ">
         <div class="row">
           <b>
             <div class="col s7">
@@ -30,7 +30,7 @@
               <%= entry.account%>
             </div>
             <div class="col s2 right">
-              <%= entry.amount %>
+              <%- entry.getFormattedAmount() %>
             </div>
           </div>
         <% }); %>
