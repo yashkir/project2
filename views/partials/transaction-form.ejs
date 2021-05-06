@@ -1,31 +1,33 @@
 <div class="row">
-  <div class="input-field col s4">
-    <label for="date">date</label>
-    <input placeholder="" value="<%= transaction.date.toISOString().slice(0,
-      10) || (new Date()).toISOString().slice(0, 10) %>"
-                          type="date" name="date" id="date">
-  </div>
-  <div class="input-field col s5">
-    <label for="name">name</label>
-    <input type="text" name="name" id="name" value="<%= transaction?.name %>">
-  </div>
-</div>
-
-<% transaction.entries.forEach((entry, idx) => { %>
   <div class="row">
-    <div class="input-field col s6 push-s1">
-      <label for="account-<%= idx %>">account</label>
-      <input type="text" placeholder="Expenses::Groceries"
-             name="account-<%= idx %>" id="account-<%= idx %>" value="<%= entry.account %>">
+    <div class="input-field col s4">
+      <label for="date">date</label>
+      <input placeholder="" value="<%= transaction.date.toISOString().slice(0,
+        10) || (new Date()).toISOString().slice(0, 10) %>"
+                            type="date" name="date" id="date">
     </div>
-    <div class="input-field col s2 push-s1">
-      <label for="amount-<%= idx %>">amount</label>
-      <input type="text" placeholder="$0.00"
-             name="amount-<%= idx %>" id="amount-<%= idx %>" value="<%= entry.amount %>">
+    <div class="input-field col s5">
+      <label for="name">name</label>
+      <input type="text" name="name" id="name" value="<%= transaction?.name %>">
     </div>
   </div>
-<% }) %>
 
-<div class="row">
-  <button class="btn col s3 offset-s1 blue" type="submit">Add Transaction</button>
+  <% transaction.entries.forEach((entry, idx) => { %>
+    <div class="row">
+      <div class="input-field col s6 push-s1">
+        <label for="account-<%= idx %>">account</label>
+        <input type="text" placeholder="Expenses::Groceries"
+               name="account-<%= idx %>" id="account-<%= idx %>" value="<%= entry.account %>">
+      </div>
+      <div class="input-field col s2 push-s1">
+        <label for="amount-<%= idx %>">amount</label>
+        <input type="text" placeholder="$0.00"
+               name="amount-<%= idx %>" id="amount-<%= idx %>" value="<%= entry.amount %>">
+      </div>
+    </div>
+  <% }) %>
+
+  <div class="row">
+    <button class="btn col s3 push-s6 blue" type="submit">Submit</button>
+  </div>
 </div>
