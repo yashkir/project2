@@ -27,8 +27,6 @@ async function showNetworth(req, res, next) {
       }
     }
 
-    console.log(totals);
-
     res.render('reports/networth', {
       title: 'Reports - Net Worth',
       totals,
