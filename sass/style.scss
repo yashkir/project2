@@ -18,14 +18,16 @@ a {
   }
 }
 
-#transaction-history {
-  .card-content {
+.transaction {
     padding: 6px;
-  }
 
   .row {
     margin-bottom: 0;
   }
+}
+
+.transaction:hover {
+  background-color: palegoldenrod;
 }
 
 .inline-form {

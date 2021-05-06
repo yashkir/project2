@@ -1,12 +1,12 @@
 <div class="row">
   <div class="row">
-    <div class="input-field col s4">
+    <div class="input-field col s5 m4">
       <label for="date">date</label>
       <input placeholder="" value="<%= transaction.date.toISOString().slice(0,
         10) || (new Date()).toISOString().slice(0, 10) %>"
                             type="date" name="date" id="date">
     </div>
-    <div class="input-field col s5">
+    <div class="input-field col s7 m5">
       <label for="name">name</label>
       <input type="text" name="name" id="name" value="<%= transaction?.name %>">
     </div>
@@ -14,12 +14,12 @@
 
   <% transaction.entries.forEach((entry, idx) => { %>
     <div class="row">
-      <div class="input-field col s6 push-s1">
+      <div class="input-field col s9 m6 push-m1">
         <label for="account-<%= idx %>">account</label>
-        <input type="text" placeholder="Expenses::Groceries"
+        <input type="text" placeholder="e.g. Expenses::Groceries"
                name="account-<%= idx %>" id="account-<%= idx %>" value="<%= entry.account %>">
       </div>
-      <div class="input-field col s2 push-s1">
+      <div class="input-field col s3 m2 push-m1">
         <label for="amount-<%= idx %>">amount</label>
         <input type="text" placeholder="$0.00"
                name="amount-<%= idx %>" id="amount-<%= idx %>" value="<%= entry.amount %>">
@@ -28,6 +28,6 @@
   <% }) %>
 
   <div class="row">
-    <button class="btn col s3 push-s6 blue" type="submit">Submit</button>
+    <button class="btn col s3 push-s9 push-m6 blue" type="submit">Submit</button>
   </div>
 </div>
