@@ -38,8 +38,8 @@ require('./config/database');
       description: 'Bought some stuff at the grocery!',
       date: new Date('2020-04-20'),
       entries: [
-        {account: 'Expenses::Groceries', amount: 50.00, currency: '$'},
-        {account: 'Assets::Chequing', amount: -50.00, currency: '$'}
+        {account: 'Expenses::Groceries', amount: 50.00, commodity: '$'},
+        {account: 'Assets::Chequing', amount: -50.00, commodity: '$'}
       ]
     });
     testLedger.transactions.push(newTransaction);
@@ -51,8 +51,8 @@ require('./config/database');
       description: 'Bought some parts',
       date: new Date('2020-04-21'),
       entries: [
-        {account: 'Expenses::Electronics', amount: 500.00, currency: '$'},
-        {account: 'Assets::Chequing', amount: -500.00, currency: '$'}
+        {account: 'Expenses::Electronics', amount: 500.00, commodity: '$'},
+        {account: 'Assets::Chequing', amount: -500.00, commodity: '$'}
       ]
     });
 
