@@ -1,0 +1,26 @@
+<h4>Monthly Report</h4>
+Here is a summary of your accounts from
+<%= startDate.toDateString(); %>
+to
+<%= endDate.toDateString(); %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Account</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% Object.keys(totals).sort().forEach(account => { %>
+      <% Object.keys(totals[account]).sort().forEach(commodity => { %>
+        <tr>
+          <td><%= account %></td>
+          <%# TODO We are formatting the totals here, should be in a function %>
+          <td><%= `${commodity}${totals[account][commodity].toFixed(2)}` %></td>
+        </tr> 
+      <% }); %>
+    <% }); %>
+  </tbody>
+</table>
