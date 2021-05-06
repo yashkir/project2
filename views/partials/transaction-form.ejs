@@ -2,13 +2,13 @@
   <div class="row">
     <div class="input-field col s5 m4">
       <label for="date">date</label>
-      <input placeholder="" value="<%= transaction.date.toISOString().slice(0,
+      <input required placeholder="" value="<%= transaction.date.toISOString().slice(0,
         10) || (new Date()).toISOString().slice(0, 10) %>"
                             type="date" name="date" id="date">
     </div>
     <div class="input-field col s7 m5">
       <label for="name">name</label>
-      <input type="text" name="name" id="name" value="<%= transaction?.name %>">
+      <input required type="text" name="name" id="name" value="<%= transaction?.name %>">
     </div>
   </div>
 
@@ -16,13 +16,22 @@
     <div class="row">
       <div class="input-field col s9 m6 push-m1">
         <label for="account-<%= idx %>">account</label>
-        <input type="text" placeholder="e.g. Expenses::Groceries"
+        <input required type="text" placeholder="e.g. Expenses::Groceries"
                name="account-<%= idx %>" id="account-<%= idx %>" value="<%= entry.account %>">
       </div>
       <div class="input-field col s3 m2 push-m1">
         <label for="amount-<%= idx %>">amount</label>
         <input type="text" placeholder="$0.00"
-               name="amount-<%= idx %>" id="amount-<%= idx %>" value="<%= entry.amount %>">
+          name="amount-<%= idx %>"
+          id="amount-<%= idx %>"
+          required 
+          pattern="^[^0-9-]*[0-9]+\.*[0-9]*"
+          title="Optional currency followed by a number in floating point
+          format. Examples: $55.00,  55, $-55.00"
+          <% if (entry.amount !== null) { %>
+            value="<%= entry.commodity + entry.amount %>"
+          <% } %>
+        />
       </div>
     </div>
   <% }) %>

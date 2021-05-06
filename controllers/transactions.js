@@ -16,10 +16,24 @@ function transactionFromForm(body) {
 
   /* Here we keep grabbing rows until account-i is undefined */
   for (let i = 0; body['account-' + i]; i++) {
+    let account = body['account-' + i];
+    let amount = body['amount-' + i];
+    let commodity;
+
+    const commodityRe = /^[^0-9-]/;
+    let commodityM = amount.match(commodityRe)
+
+    if (commodityM) {
+      commodity = commodityM[0];
+      amount = amount.replace(commodityRe, '');
+    } else {
+      commodity = DEFAULT_COMMODITY;
+    }
+
     let entry = {
-      account: body['account-' + i],
-      amount: body['amount-' + i],
-      commodity: DEFAULT_COMMODITY,
+      account,
+      amount: parseFloat(amount),
+      commodity,
     };
 
     transaction.entries.push(entry);
@@ -35,8 +49,8 @@ var dummyTransaction;
     description: '',
     date: new Date(),
     entries: [
-      {account: null, amount: null},
-      {account: null, amount: null}
+      {account: null, amount: null, commodity: ''},
+      {account: null, amount: null, commodity: ''}
     ],
   }).save()
 })()
@@ -71,23 +85,8 @@ async function create(req, res, next) {
   try {
     ledgersCtrl.throwIfCantModify(req.user, req.session.activeLedger);
 
-    let ledger = await Ledger.findById(req.session.activeLedger)
-    let newTransaction = new Transaction({
-      name: req.body.name,
-      date: req.body.date,
-      entries: []
-    });
-
-    // TODO this is hardcoded to 2 lines, make it variable
-    for (let i = 0; i <= 1; i++) {
-      let entry = {
-        account: req.body['account-' + i],
-        amount: req.body['amount-' + i],
-        commodity: DEFAULT_COMMODITY,
-      };
-
-      newTransaction.entries.push(entry);
-    }
+    let ledger = await Ledger.findById(req.session.activeLedger);
+    let newTransaction = await Transaction.create(transactionFromForm(req.body));
 
     ledger.transactions.push(newTransaction);
 
