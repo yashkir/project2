@@ -7,23 +7,31 @@ function index(req, res, next) {
 async function showNetworth(req, res, next) {
   try {
     let ledger = await Ledger.findById(req.session.activeLedger)
-      .populate({
-        path: 'transactions',
-        populate: {
-          path: 'entries',
-        }
-      })
+      .populate('transactions')
       .exec();
 
-    let netWorth = 0;
-    // TODO simply selects second row, FIXME
+    let totals = {};
+
+    /* Total up all the amounts per account and per commodity
+     * TODO - handle empty entry.amount values */
     for (transaction of ledger.transactions) {
-      netWorth += transaction.entries[1].amount;
+      for (entry of transaction.entries) {
+        if (!totals[entry.account]) {
+          totals[entry.account] = {};
+        }
+        if (!totals[entry.account][entry.commodity]) {
+          totals[entry.account][entry.commodity] = 0;
+        }
+
+        totals[entry.account][entry.commodity] += entry.amount;
+      }
     }
+
+    console.log(totals);
 
     res.render('reports/networth', {
       title: 'Reports - Net Worth',
-      netWorth
+      totals,
     });
   } catch(err) {
     next(err);

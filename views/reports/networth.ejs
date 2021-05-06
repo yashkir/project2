@@ -1,2 +1,23 @@
 <h4>Net Worth</h4>
-Your Net Worth is <%= netWorth %>
+Here is a summary of your accounts.
+
+<table>
+  <thead>
+    <tr>
+      <th>Account</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% Object.keys(totals).sort().forEach(account => { %>
+      <% Object.keys(totals[account]).sort().forEach(commodity => { %>
+        <tr>
+          <td><%= account %></td>
+          <%# TODO We are formatting the totals here, should be in a function %>
+          <td><%= `${commodity}${totals[account][commodity].toFixed(2)}` %></td>
+        </tr> 
+      <% }); %>
+    <% }); %>
+  </tbody>
+</table>
