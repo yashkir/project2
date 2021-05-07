@@ -25,7 +25,7 @@
           name="amount-<%= idx %>"
           id="amount-<%= idx %>"
           required 
-          pattern="^[^0-9-]*[0-9]+\.*[0-9]*"
+          pattern="^[^0-9-]*-?[0-9]+\.*[0-9]*"
           title="Optional currency followed by a number in floating point
           format. Examples: $55.00,  55, $-55.00"
           <% if (entry.amount !== null) { %>
